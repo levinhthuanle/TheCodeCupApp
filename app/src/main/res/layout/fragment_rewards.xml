@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rewardsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="13dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppins_black"
+            android:textColor="@color/dark_blue"
+            android:textSize="20sp"
+            android:layout_marginBottom="30sp"
+            android:layout_marginTop="30sp"
+            android:textStyle="bold"
+
+            android:text="Rewards"/>
+        <!-- Loyalty Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/round_bg_with_padding_12"
+            android:padding="16dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <TextView
+                    android:text="Loyalty card"
+                    android:fontFamily="@font/poppins_black"
+                    android:textSize="14sp"
+                    android:textColor="@color/yellow_cream"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txtLoyaltyProgress"
+                    android:text="4 / 8"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/yellow_cream"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <!-- Coffee stamp icons -->
+            <LinearLayout
+                android:background="@drawable/rounded_bg_white"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:id="@+id/stampContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+                <!-- Sẽ thêm icon động trong code -->
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- My Points -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/bg_segment_btn_blue"
+            android:padding="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <!-- Khối điểm nằm bên trái -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="My Points:"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/pointText"
+                    android:text="2750"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_black"
+                    android:paddingLeft="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Button nằm bên phải -->
+            <Button
+                android:id="@+id/btnRedeem"
+                android:text="Redeem drinks"
+                android:backgroundTint="#405A6B"
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+
+        <!-- History Rewards -->
+        <TextView
+            android:text="History Rewards"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rewardRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

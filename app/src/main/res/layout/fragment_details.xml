@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Header: Back, Title, Cart -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:src="@drawable/ic_back"
+                android:contentDescription="Back" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_black"
+                android:gravity="center"
+                android:text="Details"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnCart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:src="@drawable/ic_cart"
+                android:contentDescription="Cart" />
+        </LinearLayout>
+
+        <!-- Coffee Image -->
+        <ImageView
+            android:id="@+id/coffeeImage"
+            android:layout_width="102dp"
+            android:layout_height="75dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:src="@drawable/americano"
+            android:background="@drawable/rounded_bg_white" />
+
+
+        <!-- Name + Quantity -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/txtCoffeeName"
+                android:layout_width="0dp"
+                android:fontFamily="@font/poppins_black"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Americano"
+                android:textColor="@color/dark_blue"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/btnDecrease"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_segment_btn_blue"
+                    android:text="−" />
+
+                <TextView
+                    android:id="@+id/txtQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:padding="8dp"
+                    android:text="1"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnIncrease"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_segment_btn_blue"
+                    android:text="+" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#EEEEEE" />
+
+        <!-- Shot options -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_black"
+            android:layout_marginTop="16dp"
+            android:text="Shot"
+            android:textColor="@color/dark_blue"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginTop="8dp">
+
+            <RadioGroup
+                android:id="@+id/groupShot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioSingle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_segment_button"
+                    android:button="@null"
+                    android:text="Single"
+                    android:textColor="@color/dark_blue"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="5dp" />
+
+                <RadioButton
+                    android:id="@+id/radioDouble"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_segment_button"
+                    android:button="@null"
+                    android:text="Double"
+                    android:textColor="@color/dark_blue"
+                    android:layout_marginStart="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="5dp" />
+            </RadioGroup>
+        </LinearLayout>
+
+
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#EEEEEE" />
+
+        <!-- Select: Hot / Cold -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="@font/poppins_black"
+            android:text="Select"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/selectTypeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end|center_vertical"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/iconHot"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_hot" />
+
+            <ImageView
+                android:id="@+id/iconCold"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_cold" />
+        </LinearLayout>
+
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#EEEEEE" />
+
+        <!-- Size options -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Size"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="@font/poppins_black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/sizeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end|center_vertical"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/sizeSmall"
+                android:layout_width="17dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_size_s" />
+
+            <ImageView
+                android:id="@+id/sizeMedium"
+                android:layout_width="24dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_size_m" />
+
+            <ImageView
+                android:id="@+id/sizeLarge"
+                android:layout_width="29dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_size_l" />
+        </LinearLayout>
+
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#EEEEEE" />
+
+        <!-- Ice options -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Ice"
+            android:textColor="@color/dark_blue"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_black"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/iceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end|center_vertical"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/iceNone"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_ice_none" />
+
+            <ImageView
+                android:id="@+id/iceNormal"
+                android:layout_width="29dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_ice_normal" />
+
+            <ImageView
+                android:id="@+id/iceFull"
+                android:layout_width="29dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_ice_full" />
+        </LinearLayout>
+
+
+        <!-- Total Amount -->
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            >
+
+            <TextView
+                android:text="Total amount"
+                android:fontFamily="@font/poppins_black"
+                android:textSize="16sp"
+                android:textColor="@color/dark_blue"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/txtTotalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins_black"
+                android:gravity="center"
+                android:text="$0.00"
+                android:textColor="@color/dark_blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+        <!-- Add to Cart Button -->
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:text="Add to cart"
+            android:fontFamily="@font/poppins_black"
+            android:background="@drawable/rounded_btn"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</ScrollView>

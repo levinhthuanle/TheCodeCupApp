@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/bg_rounded"
+    android:layout_marginBottom="12dp"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/itemImage"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/dark_blue"
+        android:text="Americano"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/itemOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemName"
+        android:layout_toEndOf="@id/itemImage"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/dark_blue"
+        android:text="single | iced | medium | full ice"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/itemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemOptions"
+        android:layout_toEndOf="@id/itemImage"
+        android:layout_marginStart="12dp"
+        android:text="x1"
+        android:textColor="@color/dark_blue"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$3.00"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/itemPrice"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_delete"
+        android:contentDescription="Delete" />
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+<!--    Home-->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.thecodecup.ui.home.HomeFragment"
+        android:label="Home" />
+
+<!--    Details-->
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.thecodecup.ui.details.details_fragment.DetailsFragment"
+        android:label="Details" />
+
+<!--    Cart-->
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.thecodecup.ui.cart.CartFragment"
+        android:label="Cart" />
+
+<!--    Profile-->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.thecodecup.ui.profile.ProfileFragment"
+        android:label="Profile" />
+
+<!--    Order Success-->
+    <fragment
+        android:id="@+id/orderSuccessFragment"
+        android:name="com.thecodecup.ui.order.OrderSuccessFragment"
+        android:label="Order Success"
+         />
+
+<!--    History-->
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.thecodecup.ui.order.MyOrderFragment"
+        android:label="My Order"
+        />
+
+<!--    Reward-->
+    <fragment
+        android:id="@+id/rewardsFragment"
+        android:name="com.thecodecup.ui.rewards.RewardsFragment"
+        android:label="Rewards"
+    />
+    <!--    Redeem-->
+    <fragment
+        android:id="@+id/redeemFragment"
+        android:name="com.thecodecup.ui.rewards.RedeemFragment"
+        android:label="Redeem"
+        />
+
+
+</navigation>
