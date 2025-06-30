@@ -13,5 +13,6 @@ data class CartItemEntity(
     val size: String,
     val ice: String,
     val quantity: Int,
-    val price: Double
+    val price: Double,
+    val address: String
 )

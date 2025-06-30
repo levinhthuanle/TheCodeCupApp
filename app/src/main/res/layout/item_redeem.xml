@@ -26,6 +26,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtCoffeeName"
             android:text="Cafe Latte"
+            android:textColor="@color/background_color"
+            android:fontFamily="@font/poppins_black"
             android:textStyle="bold"
             android:textSize="16sp" />
 
@@ -34,12 +36,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtValidity"
             android:text="Valid until 04.07.21"
+            android:fontFamily="@font/poppins_black"
             android:textSize="14sp"
             android:textColor="#888888"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtPointCost"
+    <Button
+        android:id="@+id/btnRedeem"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

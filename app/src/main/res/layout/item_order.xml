@@ -34,10 +34,17 @@
             android:textColor="@color/dark_blue"
             android:textStyle="bold"/>
 
+        <TextView android:id="@+id/txtQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity: "
+            android:textSize="12sp"
+            android:textColor="@color/dark_grey" />
+
         <TextView android:id="@+id/txtDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/dark_grey"
             android:text="3 Addersion Court Chino Hills..."
             android:textSize="12sp"/>
     </LinearLayout>

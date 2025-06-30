@@ -13,5 +13,6 @@ data class OrderEntity(
     val quantity: Int,
     val price: Double,
     val status: String = "ongoing",
-    val timestamp: Long
+    val timestamp: Long,
+    val address: String = ""
 )

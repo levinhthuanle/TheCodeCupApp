@@ -7,12 +7,14 @@ import androidx.room.RoomDatabase
 import com.thecodecup.data.model.CartItemEntity
 import com.thecodecup.data.model.UserProfileEntity
 import com.thecodecup.data.model.OrderEntity
+import com.thecodecup.data.model.RewardHistoryEntity
 
 @Database(
     entities = [
         CartItemEntity::class,
         UserProfileEntity::class,
-        OrderEntity::class
+        OrderEntity::class,
+        RewardHistoryEntity::class
     ],
     version = 3
 )
@@ -20,6 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao
     abstract fun userProfileDao(): UserProfileDao
     abstract fun orderDao(): OrderDao
+    abstract fun rewardDao(): RewardDao
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null

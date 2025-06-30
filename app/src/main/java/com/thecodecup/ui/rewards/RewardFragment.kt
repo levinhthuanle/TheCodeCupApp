@@ -41,36 +41,42 @@ class RewardsFragment : Fragment() {
 
         lifecycleScope.launch {
             val dao = AppDatabase.getInstance(requireContext()).orderDao()
-            val historyOrders = dao.getOrdersByStatus("history")
+            val rewardDao = AppDatabase.getInstance(requireContext()).rewardDao()
 
-            val rewards = historyOrders.map {
-                RewardItem(it.name, it.timestamp, 12)
+            val historyOrders = dao.getOrdersByStatus("history")
+            val rewards = mutableListOf<RewardItem>()
+            for (order in historyOrders) {
+                repeat(order.quantity) {
+                    rewards.add(
+                        RewardItem(order.name, order.timestamp, 12, order.imageResId)
+                    )
+                }
             }
+
 
             adapter = RewardAdapter(rewards)
             recyclerView.adapter = adapter
 
-            // Tính số điểm dựa vào số đơn đã hoàn thành
-            txtPoints.text = (rewards.size * 12).toString()
+            // ✅ Điểm: tổng quantity (sản phẩm)
+            val totalPoints = dao.getTotalCupsByStatus("history") ?: 0
+            val totalRedeemed = rewardDao.getAll().size
 
-            // Lấy số lượng stamp từ SharedPreferences thay vì tính theo rewards.size
+            // totalCups * 12 - totalRedeems * 20
+            txtPoints.text = (totalPoints * 12 - totalRedeemed * 20).coerceAtLeast(0).toString()
+
+            // ✅ Stamp: số đơn hàng history
             val sharedPref = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
             val stampCount = sharedPref.getInt("loyalty", 0)
             drawStamps(stampCount)
 
-            // Thêm sự kiện click vào stampContainer
+            // Đổi thưởng: cần đủ 8 đơn hàng
             loyaltyContainer.setOnClickListener {
                 if (stampCount >= 8) {
-                    // Reset stamps về 0
-                    val editor = sharedPref.edit()
-                    editor.putInt("loyalty", 0)
-                    editor.apply()
-
-                    // Cập nhật lại UI
-                    drawStamps(0)
-
-                    // Thông báo
+                    // Đổi thành công, reset stamps (nếu bạn muốn)
                     Toast.makeText(requireContext(), "Bạn đã đổi thưởng thành công!", Toast.LENGTH_SHORT).show()
+
+                    // Optional: Reset lại stamps bằng cách xóa đơn trong DB nếu cần (hoặc flag thêm cột used)
+                    // Ở đây chỉ Toast mà không reset thật vì bạn vẫn muốn giữ điểm
                 } else {
                     Toast.makeText(requireContext(), "Cần đủ 8 stamps để đổi thưởng", Toast.LENGTH_SHORT).show()
                 }
@@ -79,8 +85,8 @@ class RewardsFragment : Fragment() {
             view.findViewById<Button>(R.id.btnRedeem).setOnClickListener {
                 findNavController().navigate(R.id.redeemFragment)
             }
-
         }
+
     }
 
     private fun drawStamps(count: Int) {

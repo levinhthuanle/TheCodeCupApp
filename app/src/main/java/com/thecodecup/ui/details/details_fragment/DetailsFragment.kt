@@ -96,6 +96,19 @@ class DetailsFragment : Fragment() {
         btnAddToCart.setOnClickListener {
             // Thêm item vào database
             lifecycleScope.launch {
+                val profileDao = AppDatabase.getInstance(requireContext()).userProfileDao()
+                val profile = profileDao.getProfile()
+
+                if (profile == null || profile.name.isBlank() || profile.phone.isBlank() || profile.address.isBlank() || profile.email.isBlank()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Vui lòng điền đầy đủ thông tin cá nhân trước khi đặt hàng.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    findNavController().navigate(R.id.profileFragment)
+                    return@launch
+                }
+
                 // Build entity từ đối tượng Coffee và các lựa chọn của user
                 val item = CartItemEntity(
                     name      = coffee!!.name,
@@ -105,7 +118,8 @@ class DetailsFragment : Fragment() {
                     size      = selectedSize,
                     ice       = selectedIce,
                     quantity  = quantity,
-                    price     = coffee!!.price
+                    price     = coffee!!.price,
+                    address = profile.address
                 )
                 // Ghi vào Room
                 AppDatabase

@@ -67,6 +67,13 @@ class CartFragment : Fragment() {
             lifecycleScope.launch {
                 val db = AppDatabase.getInstance(requireContext())
                 val cartItems = db.cartDao().getAll()
+                val profile = db.userProfileDao().getProfile()
+
+                if (profile == null || profile.name.isBlank() || profile.phone.isBlank() || profile.address.isBlank()) {
+                    Toast.makeText(requireContext(), "Please complete your profile before checkout.", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.profileFragment)
+                    return@launch
+                }
 
                 for (item in cartItems) {
                     db.orderDao().insert(
@@ -76,7 +83,8 @@ class CartFragment : Fragment() {
                             description = "${item.shot} | ${item.type} | ${item.size} | ${item.ice}",
                             quantity = item.quantity,
                             price = item.price,
-                            timestamp = System.currentTimeMillis()
+                            timestamp = System.currentTimeMillis(),
+                            address = profile.address
                         )
                     )
                 }

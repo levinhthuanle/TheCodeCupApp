@@ -1,5 +1,6 @@
 package com.thecodecup.ui.order
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class OrderAdapter(
         val txtDesc: TextView = itemView.findViewById(R.id.txtDesc)
         val txtPrice: TextView = itemView.findViewById(R.id.txtPrice)
         val txtTime: TextView = itemView.findViewById(R.id.txtTime)
+        val txtQuantity: TextView = itemView.findViewById(R.id.txtQuantity)
         val img: ImageView = itemView.findViewById(R.id.imgOrder)
     }
 
@@ -34,8 +36,10 @@ class OrderAdapter(
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
         holder.txtName.text = order.name
-        holder.txtDesc.text = "3 Addersion Court Chino Hills, HO56824, United State"
-        holder.txtPrice.text = "$${order.price}"
+        holder.txtDesc.text = order.address
+
+        holder.txtPrice.text = "$${order.price * order.quantity}"
+        holder.txtQuantity.text = "Quantity: ${order.quantity}"
         holder.txtTime.text = SimpleDateFormat("dd MMMM | hh:mm a", Locale.getDefault()).format(Date())
         holder.img.setImageResource(order.imageResId)
 

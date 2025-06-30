@@ -22,4 +22,7 @@ interface OrderDao {
     @Query("UPDATE orders SET status = :newStatus WHERE id = :id")
     suspend fun updateStatus(id: Int, newStatus: String)
 
+    @Query("SELECT SUM(quantity) FROM orders WHERE status = :status")
+    suspend fun getTotalCupsByStatus(status: String): Int?
+
 }
