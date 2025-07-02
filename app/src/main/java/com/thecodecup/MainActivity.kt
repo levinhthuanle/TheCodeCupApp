@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.ordersFragment)
                     true
                 }
+                R.id.analyticsFragment -> {
+                    navController.navigate(R.id.analyticsFragment)
+                    true
+                }
                 else -> false
             }
         }

@@ -56,6 +56,11 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
 
+    implementation(libs.mpandroidchart)
+
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
     //noinspection UseTomlInstead
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }

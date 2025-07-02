@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -26,6 +27,8 @@ class CartFragment : Fragment() {
 
     private lateinit var adapter: CartAdapter
     private lateinit var totalText: TextView
+    private var currentDiscountPercent = 0
+
 
     // giờ dùng list entity thực
     private val cartItems = mutableListOf<CartItemEntity>()
@@ -40,7 +43,29 @@ class CartFragment : Fragment() {
         totalText = view.findViewById(R.id.totalPrice)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.cartRecyclerView)
+        val edtVoucher = view.findViewById<EditText>(R.id.edtVoucherCode)
+        val btnApply = view.findViewById<Button>(R.id.btnApplyVoucher)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Aply voucher button
+        btnApply.setOnClickListener {
+            val code = edtVoucher.text.toString().trim()
+            if (code.isEmpty()) {
+                Toast.makeText(requireContext(), "Please enter a code", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            lifecycleScope.launch {
+                val promo = AppDatabase.getInstance(requireContext()).promoDao().getPromoByCode(code)
+                if (promo != null) {
+                    currentDiscountPercent = promo.discountPercent
+                    Toast.makeText(requireContext(), "Applied ${promo.discountPercent}% discount!", Toast.LENGTH_SHORT).show()
+                    loadCartItems() // reload để cập nhật giá
+                } else {
+                    Toast.makeText(requireContext(), "Invalid voucher code", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         adapter = CartAdapter(cartItems) { item ->
             // xóa item khỏi DB và cập nhật UI
@@ -54,9 +79,10 @@ class CartFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
+
         // load dữ liệu từ Room
         loadCartItems()
-
+        // Checkout button
         view.findViewById<Button>(R.id.btnCheckout).setOnClickListener {
             if (cartItems.isEmpty()) {
                 Toast.makeText(requireContext(), "Cart is empty!", Toast.LENGTH_SHORT).show()
@@ -110,17 +136,20 @@ class CartFragment : Fragment() {
 
     private fun loadCartItems() {
         lifecycleScope.launch {
-            val items = withContext(Dispatchers.IO) {
-                AppDatabase.getInstance(requireContext())
-                    .cartDao()
-                    .getAll()
+            val cart = withContext(Dispatchers.IO) {
+                AppDatabase.getInstance(requireContext()).cartDao().getAll()
             }
+
             cartItems.clear()
-            cartItems.addAll(items)
+            cartItems.addAll(cart)
             adapter.notifyDataSetChanged()
-            updateTotal()
+
+            val total = cart.sumOf { it.price * it.quantity }
+            val discounted = total * (100 - currentDiscountPercent) / 100.0
+            totalText.text = "$%.2f".format(discounted)
         }
     }
+
 
     private fun updateTotal() {
         val total = cartItems.sumOf { it.price * it.quantity }

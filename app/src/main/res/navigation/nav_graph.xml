@@ -55,5 +55,10 @@
         android:label="Redeem"
         />
 
+<!--    Analytics-->
+    <fragment
+        android:id="@+id/analyticsFragment"
+        android:name="com.thecodecup.ui.analytics.AnalyticsFragment"
+        android:label="Analytics" />
 
 </navigation>

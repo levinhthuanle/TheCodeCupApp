@@ -14,4 +14,10 @@
         android:id="@+id/ordersFragment"
         android:icon="@drawable/ic_orders"
         android:title="" />
+
+    <!-- ✅ Mục mới: Analytics -->
+    <item
+        android:id="@+id/analyticsFragment"
+        android:icon="@drawable/ic_analytics"
+        android:title="" />
 </menu>

@@ -126,7 +126,7 @@
             android:fontFamily="@font/poppins_black"
             android:layout_marginTop="16dp"
             android:text="Shot"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/background_color"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -181,7 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/background_color"
             android:fontFamily="@font/poppins_black"
             android:text="Select"
             android:textSize="14sp"
@@ -225,7 +225,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Size"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/background_color"
             android:fontFamily="@font/poppins_black"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -273,7 +273,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Ice"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/background_color"
             android:textSize="14sp"
             android:fontFamily="@font/poppins_black"
             android:textStyle="bold" />
@@ -323,6 +323,7 @@
                 android:textColor="@color/dark_blue"
                 android:layout_width="wrap_content"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:layout_height="wrap_content" />
 
             <View
