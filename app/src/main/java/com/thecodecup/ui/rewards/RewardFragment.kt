@@ -34,75 +34,79 @@ class RewardsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loyaltyContainer = view.findViewById(R.id.stampContainer)
-
-        txtPoints = view.findViewById(R.id.pointText)
-        recyclerView = view.findViewById(R.id.rewardRecyclerView)
+        txtPoints       = view.findViewById(R.id.pointText)
+        recyclerView    = view.findViewById(R.id.rewardRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launch {
-            val dao = AppDatabase.getInstance(requireContext()).orderDao()
+            val dao       = AppDatabase.getInstance(requireContext()).orderDao()
             val rewardDao = AppDatabase.getInstance(requireContext()).rewardDao()
+            val prefs     = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
 
+            // Build rewards list
             val historyOrders = dao.getOrdersByStatus("history")
-            val rewards = mutableListOf<RewardItem>()
-            for (order in historyOrders) {
-                repeat(order.quantity) {
-                    rewards.add(
-                        RewardItem(order.name, order.timestamp, 12, order.imageResId)
-                    )
+            val rewards = historyOrders.flatMap { order ->
+                List(order.quantity) {
+                    RewardItem(order.name, order.timestamp, 12, order.imageResId)
                 }
             }
-
-
             adapter = RewardAdapter(rewards)
             recyclerView.adapter = adapter
 
-            // ✅ Điểm: tổng quantity (sản phẩm)
-            val totalPoints = dao.getTotalCupsByStatus("history") ?: 0
+            // Calculate and display points
+            val totalPoints   = dao.getTotalCupsByStatus("history") ?: 0
             val totalRedeemed = rewardDao.getAll().size
+            txtPoints.text = (totalPoints * 12 - totalRedeemed * 20)
+                .coerceAtLeast(0)
+                .toString()
 
-            // totalCups * 12 - totalRedeems * 20
-            txtPoints.text = (totalPoints * 12 - totalRedeemed * 20).coerceAtLeast(0).toString()
+            // Load and draw stamps
+            var stampCount = prefs.getInt("loyalty", 0)
+            fun refresh() = drawStamps(stampCount)
+            refresh()
 
-            // ✅ Stamp: số đơn hàng history
-            val sharedPref = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
-            val stampCount = sharedPref.getInt("loyalty", 0)
-            drawStamps(stampCount)
-
-            // Đổi thưởng: cần đủ 8 đơn hàng
+            // On‐click: redeem and reset
             loyaltyContainer.setOnClickListener {
                 if (stampCount >= 8) {
-                    // Đổi thành công, reset stamps (nếu bạn muốn)
-                    Toast.makeText(requireContext(), "Bạn đã đổi thưởng thành công!", Toast.LENGTH_SHORT).show()
-
-                    // Optional: Reset lại stamps bằng cách xóa đơn trong DB nếu cần (hoặc flag thêm cột used)
-                    // Ở đây chỉ Toast mà không reset thật vì bạn vẫn muốn giữ điểm
+                    // Reset stored stamps
+                    prefs.edit().putInt("loyalty", 0).apply()
+                    stampCount = 0
+                    refresh()
+                    Toast.makeText(
+                        requireContext(),
+                        "Bạn đã đổi thưởng thành công! Stamps đã được đặt lại.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-                    Toast.makeText(requireContext(), "Cần đủ 8 stamps để đổi thưởng", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Cần đủ 8 stamps để đổi thưởng",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
-            view.findViewById<Button>(R.id.btnRedeem).setOnClickListener {
-                findNavController().navigate(R.id.redeemFragment)
-            }
+            // Navigate to redeem screen
+            view.findViewById<Button>(R.id.btnRedeem)
+                .setOnClickListener { findNavController().navigate(R.id.redeemFragment) }
         }
-
     }
 
     private fun drawStamps(count: Int) {
         val max = 8
         loyaltyContainer.removeAllViews()
-        val stampSize = resources.getDimensionPixelSize(R.dimen.stamp_size)
+        val size = resources.getDimensionPixelSize(R.dimen.stamp_size)
 
         for (i in 1..max) {
-            val img = ImageView(requireContext())
-            img.setImageResource(if (i <= count) R.drawable.ic_stamp_filled else R.drawable.ic_stamp_empty)
-            img.layoutParams = LinearLayout.LayoutParams(stampSize, stampSize).apply {
-                setMargins(8, 0, 8, 0)
+            val img = ImageView(requireContext()).apply {
+                setImageResource(if (i <= count) R.drawable.ic_stamp_filled else R.drawable.ic_stamp_empty)
+                layoutParams = LinearLayout.LayoutParams(size, size).apply {
+                    setMargins(8, 0, 8, 0)
+                }
             }
             loyaltyContainer.addView(img)
         }
-
-        view?.findViewById<TextView>(R.id.txtLoyaltyProgress)?.text = "${min(count, max)} / $max"
+        view?.findViewById<TextView>(R.id.txtLoyaltyProgress)
+            ?.text = "${min(count, max)} / $max"
     }
 }

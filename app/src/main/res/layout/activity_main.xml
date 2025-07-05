@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:padding="16dp"
-        android:paddingBottom="35dp"
         android:id="@+id/bgNav"
         android:background="@color/background_color">
 
